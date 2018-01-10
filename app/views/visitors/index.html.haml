@@ -1,0 +1,23 @@
+.container-fluid
+  = link_to "Login", new_user_session_path
+  |
+  = link_to "Registrar-se", new_user_registration_path
+  .center
+    %h1.title GilCorp
+
+    %br
+
+    %table.table.table-striped
+      %thead
+        %tr
+          %th{:scope => "col"} #
+          %th{:scope => "col"} Nome
+          %th{:scope => "col"} Data de criação
+          %th{:scope => "col"} Última modificação
+      %tbody
+        - User.all.each do |user|
+          %tr
+            %th{:scope => "row"}= user.id
+            %td= user.name
+            %td= l(user.created_at, format: "%d de %B de %Y")
+            %td= l(user.updated_at, format: "%d de %B de %Y")

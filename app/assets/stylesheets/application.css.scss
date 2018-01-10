@@ -15,3 +15,25 @@
  */
 
 @import "bootstrap";
+ body {
+   background-color: #002147;
+   color: white;
+ }
+
+ .center {
+   text-align: center;
+   padding: 40px;
+ }
+
+ .title {
+   font-size: 60px;
+ }
+
+ .login-form {
+   background-color: #fff;
+   color: black;
+   border-radius: 5px;
+   padding: 15px;
+   width: 500px;
+   margin: 5% 0% 5% 35%;
+ }
