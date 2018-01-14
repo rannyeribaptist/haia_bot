@@ -1,0 +1,9 @@
+.container-fluid
+  %h1 Listando artigos
+
+  = render "articles/shared/list", :articles => @articles
+
+  %br
+
+  -# = link_to 'New Article', new_article_path
+  = link_to fa_icon('arrow-left', text: "Voltar", style: "color:white"), '/', style: "color:white"

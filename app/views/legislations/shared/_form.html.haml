@@ -1,0 +1,13 @@
+= simple_form_for @legislation do |f|
+  - if @legislation.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@legislation.errors.count, "error")} prohibited this legislation from being saved:"
+      %ul
+        - @legislation.errors.full_messages.each do |message|
+          %li= message
+
+  = f.input :name, label: "Nome da legislação"
+  = f.submit "Enviar", class: "btn btn-success"
+
+  -# = f.simple_fields_for :articles, Article.new do |article|
+  -#   = article.input :content, label: "Insira o texto dos artigos"

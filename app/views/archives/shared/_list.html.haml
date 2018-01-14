@@ -1,0 +1,17 @@
+%table.table.table-striped.table-responsive
+  %thead
+    %tr
+      %th Arquivos
+      %th
+      %th
+      %th
+      %th
+
+  %tbody
+    - archives.each do |archive|
+      %tr
+        %td= Legislation.find_by_id(archive.kind).name
+        %td= link_to fa_icon('eye', text: 'Abrir arquivo', style: "color:white"), archive.archive.url, style: "color:white", target: "_blank"
+        %td= link_to fa_icon('pencil', text: 'Editar', style: "color:white"), edit_archive_path(archive), style: "color:white"
+        %td= link_to fa_icon('trash', text: 'Excluir', style: "color:white"), archive, method: :delete, data: { confirm: 'Are you sure?' }, style: "color:white"
+        %td= link_to fa_icon("rocket", text: "transformar em artigos", style: "color:white"), make_articles_path(id: archive.id), style: "color:white"

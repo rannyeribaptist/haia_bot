@@ -1,0 +1,7 @@
+= simple_form_for(@archive) do |f|
+  = f.error_notification
+
+  = f.input :kind, as: :select, collection: Legislation.all, label: "Tipo de arquivo"
+  = f.input :archive, as: :file, label: false
+
+  = f.submit "Enviar", class: "btn btn-success"

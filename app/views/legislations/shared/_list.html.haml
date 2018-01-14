@@ -1,0 +1,14 @@
+%table.table.table-striped.table-responsive
+  %thead
+    %tr
+      %th Name
+      %th
+      %th
+
+  %tbody
+    - legislations.each do |legislation|
+      %tr
+        %td= legislation.name
+        -# %td= link_to fa_icon('eye', text: 'Ver', style: "color:white"), legislation, style: "color:white"
+        %td= link_to fa_icon('pencil', text: 'Editar', style: "color:white"), edit_legislation_path(legislation), style: "color:white"
+        %td= link_to fa_icon('trash', text: 'Excluir', style: "color:white"), legislation, method: :delete, data: { confirm: 'Are you sure?' }, style: "color:white"

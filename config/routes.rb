@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
-  root to: 'visitors#index'
+  resources :archives
   devise_for :users
+  root to: 'visitors#index'
+
+  resources :articles
+  resources :legislations
   resources :users
+
+  get 'archives/:id/make_articles' => "archives#make_articles", as: :make_articles
 end

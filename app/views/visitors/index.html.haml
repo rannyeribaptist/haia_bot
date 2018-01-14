@@ -1,7 +1,13 @@
-.container-fluid
+.links
+  .right
+    = link_to "Legislações", legislations_path
+    |
+    = link_to "Arquivos", archives_path
   = link_to "Login", new_user_session_path
   |
   = link_to "Registrar-se", new_user_registration_path
+
+%section.start
   .center
     %h1.title GilCorp
 

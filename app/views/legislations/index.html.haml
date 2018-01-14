@@ -1,0 +1,9 @@
+.container-fluid
+  %h1 Legislações
+
+  = render "legislations/shared/list", :legislations => @legislations
+  %br
+
+  = link_to 'Cadastrar legislação', new_legislation_path, class: "btn btn-primary"
+  %hr.invisible
+  = link_to fa_icon('arrow-left', text: "Voltar", style: "color:white"), '/', style: "color:white"
