@@ -7,6 +7,12 @@
   %p
     %strong Legislation:
     = Legislation.find_by_id(@article.legislation).name
+  
+  %hr
+
+  %h3 Comments
+  - @article.comments.each do |comment|
+    = @comment
 
   = link_to 'Edit', edit_article_path(@article)
   \|

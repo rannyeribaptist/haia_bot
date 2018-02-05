@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180113231536) do
+ActiveRecord::Schema.define(version: 20180205160652) do
 
   create_table "archives", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.text "archive"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "kind"
+    t.boolean "is_comment"
   end
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -25,6 +26,14 @@ ActiveRecord::Schema.define(version: 20180113231536) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["legislation_id"], name: "index_articles_on_legislation_id"
+  end
+
+  create_table "comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "article_id"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["article_id"], name: "index_comments_on_article_id"
   end
 
   create_table "legislations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -53,4 +62,5 @@ ActiveRecord::Schema.define(version: 20180113231536) do
   end
 
   add_foreign_key "articles", "legislations"
+  add_foreign_key "comments", "articles"
 end

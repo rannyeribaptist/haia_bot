@@ -10,11 +10,13 @@ class ArticlesController < ApplicationController
   # GET /articles/1
   # GET /articles/1.json
   def show
+    @comment = File.read("#{Dir.pwd}/public/comments/article_#{@article.id}_comment#{@article.comments.first.id}.txt")    
   end
 
   # GET /articles/new
   def new
     @article = Article.new
+    @article.build_comments
   end
 
   # GET /articles/1/edit
@@ -69,6 +71,6 @@ class ArticlesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def article_params
-      params.require(:article).permit(:content, :legislation_id)
+      params.require(:article).permit(:content, :legislation_id, :comments_attributes => [:content])
     end
 end
