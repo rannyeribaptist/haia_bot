@@ -1,5 +1,7 @@
 class ArchivesController < ApplicationController
   before_action :set_archive, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+  before_action :admin_only
 
   # GET /archives
   # GET /archives.json

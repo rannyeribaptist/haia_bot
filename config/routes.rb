@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :archives
   devise_for :users
-  root to: 'visitors#index'
+  root to: 'articles#index'
 
   resources :articles
   resources :legislations
