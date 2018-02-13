@@ -4,7 +4,16 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   def index
-    @articles = Article.all
+    @filterrific = initialize_filterrific(
+      Article,
+      params[:filterrific]
+    ) or return
+    @articles = @filterrific.find.page(params[:page])
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   # GET /articles/1

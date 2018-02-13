@@ -9,4 +9,32 @@ class Article < ApplicationRecord
   def insert_br
     self.content.gsub("         ", "\n")
   end
+
+  filterrific(
+   default_filter_params: { sorted_by: 'content_asc' },
+   available_filters: [
+     :sorted_by,
+     :search_query
+   ]
+ )
+
+ scope :search_query, lambda { |query|
+    where("content LIKE ?", "%#{query}%")
+  }
+
+  scope :sorted_by, lambda { |sort_option|
+    direction = (sort_option =~ /desc$/) ? 'desc' : 'asc'
+    case sort_option.to_s
+    when /^content/
+      order("LOWER(articles.content) #{ direction }")        
+    else
+      raise(ArgumentError, "Opção inválida: #{ sort_option.inspect }")
+    end
+  }
+
+  def self.options_for_sorted_by
+    [
+      ['Nome (a-z)', 'name_asc']      
+    ]
+  end
 end

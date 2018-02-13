@@ -28,6 +28,7 @@ gem 'bootstrap', '~> 4.0.0.alpha6'
 gem 'bourbon'
 gem 'devise'
 gem 'devise-i18n'
+gem 'filterrific'
 gem 'simple_form'
 gem "font-awesome-rails"
 gem 'carrierwave', '~> 1.0'
