@@ -1,7 +1,7 @@
 class ArchivesController < ApplicationController
   before_action :set_archive, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
-  before_action :admin_only
+  # before_action :admin_only
 
   # GET /archives
   # GET /archives.json
@@ -100,6 +100,7 @@ class ArchivesController < ApplicationController
           @comment = Comment.new
           @comment.content = ""
           @comment.article = Article.find_by_id(@a)
+          @comment.author = @file.author
           @content = ""
           while(line = fh.gets) != nil
             @prev = line
@@ -125,6 +126,6 @@ class ArchivesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def archive_params
-      params.require(:archive).permit(:archive, :kind, :is_comment)
+      params.require(:archive).permit(:archive, :kind, :is_comment, :author)
     end
 end

@@ -14,9 +14,12 @@ class Article < ApplicationRecord
    default_filter_params: { sorted_by: 'content_asc' },
    available_filters: [
      :sorted_by,
+     :legislation,
      :search_query
    ]
  )
+
+ scope :legislation, -> legislation_id { where(:legislation_id => legislation_id) }
 
  scope :search_query, lambda { |query|
     where("content LIKE ?", "%#{query}%")

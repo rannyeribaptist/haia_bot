@@ -1,19 +1,15 @@
-.container-fluid
-  %p#notice= notice
-
-  %p
-    %strong Lei:
-    = @article.content.gsub(/\n/, '<br>').html_safe
-  %p
-    %strong Legislation:
-    = Legislation.find_by_id(@article.legislation).name
+.container-fluid{style: "display:inline"}
+  .row
+    .col-lg-3
+      .article
+        %h3.panel-title= Legislation.where(id: @article.legislation_id).first.name
+        %hr/
+        = @article.content.gsub(/\n/, '<br>').html_safe
   
-  %hr
-
-  %h3 Comments
-  - @article.comments.each do |comment|
-    = @comment
-
-  = link_to 'Edit', edit_article_path(@article)
-  \|
-  = link_to 'Back', articles_path
+    - @article.comments.each_slice(4) do |comments|
+      - comments.each do |comment|
+        .col-lg-3
+          .article
+            %h3.panel-title= @author
+            %hr/
+            = @comment

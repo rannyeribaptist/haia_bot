@@ -35,6 +35,7 @@ gem 'carrierwave', '~> 1.0'
 gem 'haml-rails'
 gem 'jquery-rails'
 gem 'mysql2', '~> 0.3.18'
+gem 'rails-erd', require: false, group: :development
 group :development do
   gem 'better_errors'
   gem 'foreman'

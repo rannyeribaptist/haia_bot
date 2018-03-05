@@ -1,7 +1,7 @@
 class LegislationsController < ApplicationController
   before_action :set_legislation, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
-  before_action :admin_only
+  # before_action :admin_only
 
   # GET /legislations
   # GET /legislations.json

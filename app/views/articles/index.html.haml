@@ -1,31 +1,33 @@
-.container-fluid
-  %h1 Listando artigos
+.panel{style: "padding:30px"}
+  %div{style: "text-align:center"}
+    %h1{style: "font-size: 70px"} HaiaBot
 
-  -# = render "articles/shared/list", :articles => @articles
-  
-  
-  = form_for_filterrific @filterrific, html: { id: 'filterrific-no-ajax-auto-submit' } do |f|
-    %div
-      Search
-      = f.text_field(                                |
-          :search_query,                             |
-          class: 'filterrific-periodically-observed' |
-        )                                            |
-      = f.submit 'Filter'
-    %div
-      = link_to(                 |
-          'Reset filters',       |
-          reset_filterrific_url, |
-        )                        |    
-    = render_filterrific_spinner    
+  %div{style: "display:inline"}
+    = form_for_filterrific @filterrific, html: { id: 'filterrific-no-ajax-auto-submit' }, remote: false do |f|
+      %div{style: "display:inline"}
+        = f.text_field(                                |
+            :search_query,                             |
+            class: 'filterrific-periodically-observed form-control input-sm', |
+            placeholder: 'Digite um artigo',            |
+            style: "display: inline;max-width:70%"     |
+          )                                            |
+        
+      %div{style: "display:inline"}
+        = f.select(                                              |
+          :legislation, @filterrific.select_options[:legislation], |
+          { include_blank: true },                            |
+          class: 'form-control input-sm',                       |
+          style: "display: inline;max-width:20%"                |
+        )                                                      |
+
+        = f.submit 'Pesquisar', class: "btn btn-success" 
+
+      = render_filterrific_spinner    
+
+  %hr/
 
   = render(                           |
       partial: 'articles/shared/list',       |
       locals: { articles: @articles } |
     )                                 |
     
-
-  %br
-
-  -# = link_to 'New Article', new_article_path
-  = link_to fa_icon('arrow-left', text: "Voltar", style: "color:white"), '/', style: "color:white"
