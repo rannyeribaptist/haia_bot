@@ -6,10 +6,9 @@
         %hr/
         = @article.content.gsub(/\n/, '<br>').html_safe
   
-    - @article.comments.each_slice(4) do |comments|
-      - comments.each do |comment|
-        .col-lg-3
-          .article
-            %h3.panel-title= @author
-            %hr/
-            = @comment
+    - @article.comments.each_with_index do |c, i|
+      .col-lg-3
+        .article
+          %h3.panel-title= @authors[i]
+          %hr/
+          = (@comments[i]).html_safe

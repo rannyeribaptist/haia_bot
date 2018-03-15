@@ -112,7 +112,7 @@ class ArchivesController < ApplicationController
             @content = @content + "\n" + line
           end
           @comment.save
-          File.write("#{Dir.pwd}/public/comments/article_#{@a}_comment#{@comment.id}.txt", @content)
+          File.write("#{Dir.pwd}/public/comments/#{@a}#{@comment.id}.txt", @content)
           @a = @a + 1          
           break if @a > @articles.last.id
         end

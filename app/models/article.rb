@@ -9,6 +9,11 @@ class Article < ApplicationRecord
   def insert_br
     self.content.gsub("         ", "\n")
     self.number.delete! 'º'
+    self.number.delete! 'A'
+    self.number.delete! 'r'
+    self.number.delete! 't'
+    self.number.delete! '.'
+    self.number.delete! ' '
   end
 
   filterrific(

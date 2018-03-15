@@ -1,14 +1,15 @@
-#filterrific_results    
-  .row
-    - articles.each_slice(3) do |arts|
-      - arts.each do |article|
-        .col-lg-3
-          = link_to article do
-            %div.article
-              %h3.panel-title= article.legislation.name
-              %hr/          
-              = truncate(article.content, length: 80, omission: '...').html_safe
-              -# = article.legislation.name
-              -# = link_to fa_icon('eye', text: 'Ver', style: "color:white"), article, style: "color:white"
-              -# = link_to fa_icon('pencil', text: 'Editar', style: "color:white"), edit_article_path(article), style: "color:white"
-              -# = link_to fa_icon('trash', text: 'Excluir', style: "color:white"), article, method: :delete, data: { confirm: 'Are you sure?' }, style: "color:white"
+#filterrific_results
+  - if not article.empty?
+    .row
+      .col-lg-4
+        .article
+          %h3.panel-title= Legislation.where(id: article.first.legislation_id).first.name
+          %hr/
+          = article.first.content.gsub(/\n/, '<br>').html_safe
+      
+      - article.first.comments.each_with_index do |c, i|
+        .col-lg-4
+          .article
+            %h3.panel-title= authors[i]
+            %hr/
+            = (comments[i]).html_safe

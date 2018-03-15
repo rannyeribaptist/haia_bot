@@ -12,8 +12,23 @@ class ArticlesController < ApplicationController
       select_options: {
         legislation: Legislation.all.collect {|a| [a.name, a.id]}
       }
-    ) or return
-    @articles = @filterrific.find
+    ) or return    
+    if @filterrific.find.length > 1
+      @article = ""
+    else
+      @article = @filterrific.find
+    end
+
+    if not @article.empty?
+      if @article.first.comments.present?
+        @comments = []
+        @authors = []
+        @article.first.comments.each_with_index do |c, i|
+          @comments[i] = File.read("#{Dir.pwd}/public/comments/#{@article.first.id}#{c.id}.txt")
+          @authors[i] = c.author
+        end
+      end
+    end
 
     respond_to do |format|
       format.html
@@ -25,8 +40,12 @@ class ArticlesController < ApplicationController
   # GET /articles/1.json
   def show
     if @article.comments.present?
-      @comment = File.read("#{Dir.pwd}/public/comments/article_#{@article.id}_comment#{@article.comments.first.id}.txt")
-      @author = @article.comments.first.author
+      @comments = []
+      @authors = []
+      @article.comments.each_with_index do |c, i|
+        @comments[i] = File.read("#{Dir.pwd}/public/comments/#{@article.id}#{c.id}.txt")
+        @authors[i] = c.author
+      end
     end
   end
 
