@@ -78,7 +78,11 @@ class ArchivesController < ApplicationController
             break if line.include?("..AA")
             @article.content = @article.content + "\n" + line
           end
-
+          @article.content.split(" ").each_with_index do |a, i|
+            if a == "Art."              
+              @article.number = @article.content.split(" ")[i] + " " + @article.content.split(" ")[i+1]
+            end
+          end
           @article.save
         end
 

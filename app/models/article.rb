@@ -1,13 +1,14 @@
 class Article < ApplicationRecord
   belongs_to :legislation
 
-  has_many :comments
+  has_many :comments, dependent: :destroy
   accepts_nested_attributes_for :comments, :allow_destroy => true
 
   before_save :insert_br
 
   def insert_br
     self.content.gsub("         ", "\n")
+    self.number.delete! 'º'
   end
 
   filterrific(
@@ -22,7 +23,7 @@ class Article < ApplicationRecord
  scope :legislation, -> legislation_id { where(:legislation_id => legislation_id) }
 
  scope :search_query, lambda { |query|
-    where("content LIKE ?", "%#{query}%")
+    where(:number => "#{query}")
   }
 
   scope :sorted_by, lambda { |sort_option|

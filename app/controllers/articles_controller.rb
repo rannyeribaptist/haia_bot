@@ -9,11 +9,11 @@ class ArticlesController < ApplicationController
     @filterrific = initialize_filterrific(
       Article,
       params[:filterrific],
-      select_options: {        
+      select_options: {
         legislation: Legislation.all.collect {|a| [a.name, a.id]}
       }
     ) or return
-    @articles = @filterrific.find    
+    @articles = @filterrific.find
 
     respond_to do |format|
       format.html
@@ -24,8 +24,10 @@ class ArticlesController < ApplicationController
   # GET /articles/1
   # GET /articles/1.json
   def show
-    @comment = File.read("#{Dir.pwd}/public/comments/article_#{@article.id}_comment#{@article.comments.first.id}.txt")
-    @author = @article.comments.first.author
+    if @article.comments.present?
+      @comment = File.read("#{Dir.pwd}/public/comments/article_#{@article.id}_comment#{@article.comments.first.id}.txt")
+      @author = @article.comments.first.author
+    end
   end
 
   # GET /articles/new
