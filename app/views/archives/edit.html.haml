@@ -1,6 +1,8 @@
-.login-form
-  %h1 Editando Arquivo
-  %hr
-  = render 'archives/shared/form'
-  %hr
-  = link_to fa_icon("arrow-left", text: "Voltar", style: "color:black"), archives_path, style: "color:black"
+.container{style: "max-width:600px"}
+  .card
+    .card-body
+      %h1 Editando Arquivo
+      %hr
+      = render 'archives/shared/form'
+      %hr
+      = link_to fa_icon("arrow-left", text: "Voltar", style: "color:black"), archives_path, style: "color:black"

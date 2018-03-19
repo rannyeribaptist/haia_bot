@@ -2,14 +2,16 @@
   - if not article.empty?
     .row
       .col-lg-4
-        .article
-          %h3.panel-title= Legislation.where(id: article.first.legislation_id).first.name
-          %hr/
-          = article.first.content.gsub(/\n/, '<br>').html_safe
+        .card
+          .card-header
+            = Legislation.where(id: article.first.legislation_id).first.name
+          .card-body
+            = article.first.content.gsub(/\n/, '<br>').html_safe
       
       - article.first.comments.each_with_index do |c, i|
         .col-lg-4
-          .article
-            %h3.panel-title= authors[i]
-            %hr/
-            = (comments[i]).html_safe
+          .card
+            .card-header
+              = authors[i]
+            .card-body
+              = (comments[i]).html_safe

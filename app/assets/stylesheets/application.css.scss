@@ -18,8 +18,8 @@
 @import "font-awesome";
 
  body {
-   background-color: #002147;
-   color: white;
+   background-color: #fff;
+   color: black;
  }
 
  .center {
@@ -56,4 +56,13 @@
    color: black;
    padding: 15px;
    margin: 5px 5px 5px 5px;
+ }
+
+ .header {
+   text-align: center;
+   margin-top: 35px;
+ }
+
+ .title {
+   display:inline;
  }

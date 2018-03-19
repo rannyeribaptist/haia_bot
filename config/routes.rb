@@ -13,4 +13,6 @@ Rails.application.routes.draw do
 
   get 'articles/API/:number/:legislation' => "articles#api_request", as: :retrieve_api_data
   get 'leg/API' => "legislations#api_request", as: :legislation_api_request
+
+  get '/gil' => 'admin#index', as: :admin_path
 end

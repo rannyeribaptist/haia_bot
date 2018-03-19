@@ -8,6 +8,10 @@
     = javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.9.3/umd/popper.min.js', 'data-turbolinks-track' => 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track' => 'reload'
     = csrf_meta_tags
-  %body    
+  %body
     = render 'layouts/messages'
+    .header
+      %h1.title HaiaBot
+      %img{:src => "https://png.icons8.com/color/50/000000/bot.png", :style => "display: inline;height:50px;margin-bottom:30px;margin-left:10px"}/
+
     = yield

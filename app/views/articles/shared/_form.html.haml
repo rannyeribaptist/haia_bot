@@ -6,6 +6,6 @@
         - @article.errors.full_messages.each do |message|
           %li= message
   
-  = f.input :legislation, label: "Legislação", as: :select, collection: Legislation.all
-  = f.input :content, label: "Conteúdo dos artigos"
+  = f.input :legislation_id, label: "Legislação", as: :select, collection: Legislation.all
+  = f.input :content, label: "Conteúdo dos artigos", input_html: {style: "min-height:200px"}
   = f.submit 'Enviar', class: "btn btn-success"

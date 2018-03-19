@@ -1,0 +1,98 @@
+.container-fluid
+  #exTab2.container
+    %ul.nav.nav-tabs{style: "justify-content:center;font-size:25px"}
+      %li.active{style: "margin-left:15px;margin-right:15px"}
+        %a{"data-toggle" => "tab", :href => "#1", style: "color:#000"} Legislações
+      %li{style: "margin-left:15px;margin-right:15px"}
+        %a{"data-toggle" => "tab", :href => "#2", style: "color:#000"} Arquivos
+      %li{style: "margin-left:15px;margin-right:15px"}
+        %a{"data-toggle" => "tab", :href => "#3", style: "color:#000"} Artigos
+      -# %li{style: "margin-left:15px;margin-right:15px"}
+      -#   %a{"data-toggle" => "tab", :href => "#4", style: "color:#000"} Usuários
+    
+    .tab-content
+      %br/
+      #1.tab-pane.active
+        .row
+          - @legislations.each do |leg|
+            .col-lg-3
+              .card
+                .card-header
+                  = leg.name
+                .card-body
+                  = link_to fa_icon('pencil', text: 'Editar', color: "#000"), edit_legislation_path(leg), style: "color:#000"
+                  = link_to fa_icon('trash', text: 'Excluir', color: "#000"), leg, method: :delete, data: { confirm: 'Tem certeza?' }, style: "color:#000", class: "pull-right"
+          .col-lg-3
+            .card                
+              .card-body
+                = link_to "Adicionar", new_legislation_path
+      
+      #2.tab-pane
+        .row
+          - @archives.each do |arch|
+            .col-lg-4
+              .card
+                .card-header
+                  - if arch.is_comment
+                    = "Comentário de " + arch.author + " sobre o " + Legislation.where(:id => arch.kind).first.name
+                  - else
+                    = Legislation.where(:id => arch.kind).first.name
+                .card-body{style: "text-align:center"}
+                  = link_to fa_icon('pencil', text: 'Editar', color: "#000"), edit_archive_path(arch), style: "color:#000", class: "pull-left"
+                  = link_to fa_icon('trash', text: 'Excluir', color: "#000"), arch, method: :delete, data: { confirm: 'Tem certeza?' }, style: "color:#000", class: "pull-right"
+                  - if arch.is_comment
+                    = link_to fa_icon("rocket", text: "transformar em Comentários", color: "#000"), make_comments_path(id: arch.id), style: "color: #000"
+                  - else
+                    = link_to fa_icon("rocket", text: ("transformar em <br> artigos").html_safe, color: "#000"), make_articles_path(id: arch.id), style: "color: #000"
+          .col-lg-4
+            .card                
+              .card-body
+                = link_to "Adicionar", new_archive_path
+      
+      #3.tab-pane
+        = form_for_filterrific @filterrific, remote: true do |f|
+          %div{style: "display:inline"}
+            = f.text_field(                                |
+                :search_query,                             |
+                class: 'filterrific-periodically-observed form-control input-sm', |
+                placeholder: 'Digite um artigo',            |
+                style: "display: inline;max-width:70%"     |
+              )                                            |
+            
+          %div{style: "display:inline"}
+            = f.select(                                              |
+              :legislation, @filterrific.select_options[:legislation], |
+              { include_blank: true },                            |
+              class: 'form-control input-sm',                       |
+              style: "display: inline;max-width:20%"                |
+            )                                                      |
+
+            = f.submit 'Pesquisar', class: "btn btn-success"           
+        
+        %hr/
+
+        = render(                           |
+            partial: 'admin/articles',       |
+            locals: { article: @article, comments: @comments, authors: @authors } |
+          )                                 |        
+      
+      #4.tab-pane
+        %table.table.table-striped
+          %thead
+            %tr
+              %td #
+              %td Nome
+              %td Email
+              %td
+              %td
+          %tbody
+            - @users.each do |u|
+              %tr
+                %th= u.id
+                %th= u.name
+                %th= u.email
+                %th= link_to fa_icon('pencil', text: 'Editar', color: "#000"), edit_user_path(u), style: "color:#000"
+                %th= link_to fa_icon('trash', text: 'Excluir', color: "#000"), u, method: :delete, data: { confirm: 'Tem certeza?' }, style: "color:#000", class: "pull-right"
+                
+
+%br/

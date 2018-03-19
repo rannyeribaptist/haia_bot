@@ -30,7 +30,7 @@ class ArchivesController < ApplicationController
 
     respond_to do |format|
       if @archive.save
-        format.html { redirect_to @archive, notice: 'Archive was successfully created.' }
+        format.html { redirect_to admin_path_url, notice: 'Archive was successfully created.' }
         format.json { render :show, status: :created, location: @archive }
       else
         format.html { render :new }
@@ -44,7 +44,7 @@ class ArchivesController < ApplicationController
   def update
     respond_to do |format|
       if @archive.update(archive_params)
-        format.html { redirect_to @archive, notice: 'Archive was successfully updated.' }
+        format.html { redirect_to admin_path_url, notice: 'Archive was successfully updated.' }
         format.json { render :show, status: :ok, location: @archive }
       else
         format.html { render :edit }
@@ -58,7 +58,7 @@ class ArchivesController < ApplicationController
   def destroy
     @archive.destroy
     respond_to do |format|
-      format.html { redirect_to archives_url, notice: 'Archive was successfully destroyed.' }
+      format.html { redirect_to admin_path_url, notice: 'Archive was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -88,7 +88,7 @@ class ArchivesController < ApplicationController
 
       end
     end
-    redirect_to articles_path
+    redirect_to admin_path_url
   end
 
   def make_comments
@@ -119,7 +119,7 @@ class ArchivesController < ApplicationController
       end
     end
 
-    redirect_to articles_path
+    redirect_to admin_path_url
   end
 
   private

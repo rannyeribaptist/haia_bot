@@ -35,7 +35,7 @@ class LegislationsController < ApplicationController
 
     respond_to do |format|
       if @legislation.save
-        format.html { redirect_to @legislation, notice: 'Legislation was successfully created.' }
+        format.html { redirect_to admin_path_url, notice: 'Legislation was successfully created.' }
         format.json { render :show, status: :created, location: @legislation }
       else
         format.html { render :new }
@@ -49,7 +49,7 @@ class LegislationsController < ApplicationController
   def update
     respond_to do |format|
       if @legislation.update(legislation_params)
-        format.html { redirect_to @legislation, notice: 'Legislation was successfully updated.' }
+        format.html { redirect_to admin_path_url, notice: 'Legislation was successfully updated.' }
         format.json { render :show, status: :ok, location: @legislation }
       else
         format.html { render :edit }
@@ -63,7 +63,7 @@ class LegislationsController < ApplicationController
   def destroy
     @legislation.destroy
     respond_to do |format|
-      format.html { redirect_to legislations_url, notice: 'Legislation was successfully destroyed.' }
+      format.html { redirect_to admin_path_url, notice: 'Legislation was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

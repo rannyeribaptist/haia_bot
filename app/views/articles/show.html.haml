@@ -1,14 +1,24 @@
-.container-fluid{style: "display:inline"}
+.container-fluid 
   .row
     .col-lg-3
-      .article
-        %h3.panel-title= Legislation.where(id: @article.legislation_id).first.name
-        %hr/
-        = @article.content.gsub(/\n/, '<br>').html_safe
-  
+      .card
+        .card-header
+          = Legislation.where(id: @article.legislation_id).first.name
+        .card-body    
+          = @article.content.gsub(/\n/, '<br>').html_safe
+        - if current_user.role == "admin"
+          .card-footer
+            = link_to fa_icon('pencil', text: 'Editar', color: "#000"), edit_article_path(@article), style: "color:#000"
+            = link_to fa_icon('trash', text: 'Excluir', color: "#000"), @article, method: :delete, data: { confirm: 'Tem certeza?' }, style: "color:#000", class: "pull-right"
+
     - @article.comments.each_with_index do |c, i|
       .col-lg-3
-        .article
-          %h3.panel-title= @authors[i]
-          %hr/
-          = (@comments[i]).html_safe
+        .card
+          .card-header
+            = @authors[i]
+          .card-body
+            = (@comments[i]).html_safe
+          - if current_user.role == "admin"    
+            .card-footer
+              = link_to fa_icon('pencil', text: 'Editar', color: "#000"), edit_comment_path(Comment.where(:content => @comments[i]).first.id), style: "color:#000"
+              = link_to fa_icon('trash', text: 'Excluir', color: "#000"), @article, method: :delete, data: { confirm: 'Tem certeza?' }, style: "color:#000", class: "pull-right"

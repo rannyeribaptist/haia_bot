@@ -1,7 +1,8 @@
-
-.login-form
-  %h1 Editar Legislação
-  %hr
-  = render 'legislations/shared/form'
-  %hr
-  = link_to fa_icon("arrow-left", style: "color:black", text: "Voltar"), legislations_path, style: "color:black"
+.container{style: "max-width:600px"}
+  .card
+    .card-body
+      %h1 Editar Legislação
+      %hr
+      = render 'legislations/shared/form'
+      %hr
+      = link_to fa_icon("arrow-left", style: "color:black", text: "Voltar"), legislations_path, style: "color:black"
