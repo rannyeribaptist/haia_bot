@@ -1,17 +1,22 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
-  before_action :admin_only, :except => [:index, :show]
+  before_action :admin_only, :except => [:index, :show, :api_request]
 
   # GET /articles
   # GET /articles.json
   def index
+    params[:filterrific][:search_query].each_char do |a|
+      if not a =~ /[0-9]/
+        params[:filterrific][:search_query].delete!(a)
+      end
+    end
     @filterrific = initialize_filterrific(
       Article,
       params[:filterrific],
       select_options: {
         legislation: Legislation.all.collect {|a| [a.name, a.id]}
-      }
+      }      
     ) or return    
     if @filterrific.find.length > 1
       @article = ""
@@ -46,7 +51,25 @@ class ArticlesController < ApplicationController
         @comments[i] = File.read("#{Dir.pwd}/public/comments/#{@article.id}#{c.id}.txt")
         @authors[i] = c.author
       end
+    end    
+  end
+
+  def api_request
+    params[:number].each_char do |a|
+      if not a =~ /[0-9]/
+        params[:number].delete!(a)
+      end
     end
+    @article = Article.where(:number => params[:number]).where(:legislation_id => params[:legislation]).first
+    if @article.comments.present?
+      @comments = []
+      @authors = []
+      @article.comments.each_with_index do |c, i|
+        @comments[i] = File.read("#{Dir.pwd}/public/comments/#{@article.id}#{c.id}.txt")
+        @authors[i] = c.author
+      end
+    end
+    render :json => {:article => @article.content, :comments => @comments, :authors => @authors, number: @article.number}
   end
 
   # GET /articles/new
@@ -102,7 +125,7 @@ class ArticlesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_article
-      @article = Article.find(params[:id])
+      @article = Article.where(:number => params[:id]).first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

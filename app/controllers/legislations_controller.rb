@@ -1,5 +1,5 @@
 class LegislationsController < ApplicationController
-  before_action :set_legislation, only: [:show, :edit, :update, :destroy]
+  before_action :set_legislation, only: [:show, :edit, :update, :destroy], except: [:api_request]
   before_action :authenticate_user!
   # before_action :admin_only
 
@@ -12,6 +12,11 @@ class LegislationsController < ApplicationController
   # GET /legislations/1
   # GET /legislations/1.json
   def show
+  end
+  
+  def api_request
+    @legislations = Legislation.all
+    render :json => {:legislations => @legislations}    
   end
 
   # GET /legislations/new
