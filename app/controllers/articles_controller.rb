@@ -6,9 +6,11 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   def index
-    params[:filterrific][:search_query].each_char do |a|
-      if not a =~ /[0-9]/
-        params[:filterrific][:search_query].delete!(a)
+    if params[:filterrific].present?
+      params[:filterrific][:search_query].each_char do |a|
+        if not a =~ /[0-9]/
+          params[:filterrific][:search_query].delete!(a)
+        end
       end
     end
     @filterrific = initialize_filterrific(
