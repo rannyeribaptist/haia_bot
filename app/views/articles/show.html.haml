@@ -20,5 +20,5 @@
             = (@comments[i]).html_safe
           - if current_user.role == "admin"    
             .card-footer
-              = link_to fa_icon('pencil', text: 'Editar', color: "#000"), edit_comment_path(Comment.where(:content => @comments[i]).first.id), style: "color:#000"
-              = link_to fa_icon('trash', text: 'Excluir', color: "#000"), @article, method: :delete, data: { confirm: 'Tem certeza?' }, style: "color:#000", class: "pull-right"
+              = link_to fa_icon('pencil', text: 'Editar', color: "#000"), edit_comment_path(Comment.where(:id => @comments_ids[i]).first.id), style: "color:#000"
+              = link_to fa_icon('trash', text: 'Excluir', color: "#000"), comment_path(Comment.where(:id => @comments_ids[i]).first), method: :delete, data: { confirm: 'Tem certeza?' }, style: "color:#000", class: "pull-right"

@@ -47,9 +47,11 @@ class ArticlesController < ApplicationController
   def show
     if @article.comments.present?
       @comments = []
+      @comments_ids = []
       @authors = []
       @article.comments.each_with_index do |c, i|
         @comments[i] = File.read("#{Dir.pwd}/public/comments/#{@article.id}#{c.id}.txt")
+        @comments_ids[i] = c.id
         @authors[i] = c.author
       end
     end    

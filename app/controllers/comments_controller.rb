@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
-  before_action :admin_only
+  # before_action :admin_only
 
   # GET /comments
   # GET /comments.json
@@ -21,6 +21,8 @@ class CommentsController < ApplicationController
 
   # GET /comments/1/edit
   def edit
+    @article = Article.find_by_id(@comment.article_id)    
+    @comment.content = File.read("#{Dir.pwd}/public/comments/#{@article.id}#{@comment.id}.txt")
   end
 
   # POST /comments
@@ -30,7 +32,7 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to @comment, notice: 'Comment was successfully created.' }
+        format.html { redirect_to admin_path_url, notice: 'Comment was successfully created.' }
         format.json { render :show, status: :created, location: @comment }
       else
         format.html { render :new }
@@ -42,9 +44,12 @@ class CommentsController < ApplicationController
   # PATCH/PUT /comments/1
   # PATCH/PUT /comments/1.json
   def update
+    @article = Article.find_by_id(@comment.article_id)    
+    File.write("#{Dir.pwd}/public/comments/#{@article.id}#{@comment.id}.txt", params[:comment][:content])
+    @comment.content = ""
     respond_to do |format|
       if @comment.update(comment_params)
-        format.html { redirect_to @comment, notice: 'Comment was successfully updated.' }
+        format.html { redirect_to admin_path_url, notice: 'Comment was successfully updated.' }
         format.json { render :show, status: :ok, location: @comment }
       else
         format.html { render :edit }
@@ -58,7 +63,7 @@ class CommentsController < ApplicationController
   def destroy
     @comment.destroy
     respond_to do |format|
-      format.html { redirect_to comments_url, notice: 'Comment was successfully destroyed.' }
+      format.html { redirect_to admin_path_url, notice: 'Comment was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

@@ -1,9 +1,8 @@
 = simple_form_for(@comment) do |f|
   = f.error_notification
 
-  .form-inputs
-    = f.association :article
-    = f.input :content
+  .form-inputs   
+    = f.input :content, label: "Comentário", input_html: { style: "min-height: 500px" }
 
   .form-actions
-    = f.button :submit
+    = f.submit "Atualizar comentário", class: "btn btn-success"

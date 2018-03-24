@@ -94,7 +94,7 @@ class ArchivesController < ApplicationController
   def make_comments
     @file = Archive.find(params[:id])
     
-    File.open("#{Dir.pwd}/public#{@file.archive.url}", 'r') do |fh|      
+    File.open("#{Dir.pwd}/public#{@file.archive.url}", 'r') do |fh|
       @prev = ""      
       @articles = Article.where(:legislation => @file.kind)
       @a = @articles.first.id
