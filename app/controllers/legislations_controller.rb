@@ -1,6 +1,6 @@
 class LegislationsController < ApplicationController
   before_action :set_legislation, only: [:show, :edit, :update, :destroy], except: [:api_request]
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:api_request]
   # before_action :admin_only
 
   # GET /legislations
